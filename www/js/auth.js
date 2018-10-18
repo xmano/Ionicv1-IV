@@ -18,8 +18,6 @@ angular.module('AuthController', ['services'])
       $scope.dispLockOut = false;
       $scope.btn = "Log In";
       $scope.label = "Log In";
-      $route.reload();
-      return;
     } else if (state == 1) {
       //LoggedOut - with token
       $scope.msg = "Please log in..";
@@ -41,6 +39,7 @@ angular.module('AuthController', ['services'])
       $scope.dispLockOut = true;
       $scope.label = "Lock Out";
     }
+    $scope.$apply();
 
   }
   
