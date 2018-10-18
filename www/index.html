@@ -35,27 +35,40 @@
     <script src="js/userservice.js"></script>
   </head>
   <body ng-app="starter">
-
-    <ion-pane>
+    
+    <ion-view cache-view="false">
       <ion-header-bar class="bar-stable">
         <h1 class="title">Ionic Blank Starter</h1>
       </ion-header-bar>
-      <ion-content>
-        <div ng-controller="LoginCtrl">
+      <ion-content style="padding:20px" ng-controller="BioCtrl" >
+        <div class="row row-center" style="display:block; text-align: center;">
+          <img ng-src="img/ionic.png"  width="25%"/>
+          <div style="display:block; margin-top: 40px; text-align: center">
+            <h3>{{ msg }}</h3>
+          </div>
+        </div>
+        
+        <div ng-show="dispBiometric" ng-click="bioLogin('mano@ionic.io')">
+          <div class="row row-center" 
+            style="display:block; text-align: center; margin-top: 40px;">
+            <img ng-src="img/fingerprint.png"  width="25%"/>
+          </div>  
+        </div>
+      
+        <div>
           <a class="facebook-sign-in button 
               button-block" ng-click="login('mano@ionic.io', '#121-Pickney')">
-              Login
+              {{btn}}
           </a>
         </div>
 
-        <div ng-controller="BioCtrl">
-          <a class="button 
-              button-block" ng-click="check()">
-              VaultCheck
+        <div ng-show="dispBiometric">
+          <a class="button button-block button-positive" ng-click="lockout()">
+              {{label}}
           </a>
         </div>
         
       </ion-content>
-    </ion-pane>
+    </ion-view>
   </body>
 </html>

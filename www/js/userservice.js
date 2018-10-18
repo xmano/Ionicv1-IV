@@ -166,10 +166,43 @@ angular.module('services', [])
     }
   }
 
+  /**
+   * Get user info from the server. Also doubles
+   * as a way to check if a token is still fresh
+   */
+  function getUser() {
+
+    // Perform a server request to get the user information
+    // This request pulls in a JSON with {name: 'Max'}
+    // If you're using IdentityVaultInterceptor, the token header will get added automatically for you
+    // const userInfoResult = await this.http.get('https://api.myjson.com/bins/7xoye', { observe: 'response' }).toPromise();
+
+    return new Promise(function(resolve){
+      setTimeout(() => {
+        const user = {
+          name: 'Max'
+        }
+
+        // Save the user info
+        this.setInfo(user);
+
+        resolve(user);
+      }, 1000);
+    });
+
+  }
+  
+  function goToApp() {
+    
+    
+  }
+
   
   return {
     init: init,
     login: login,
+    logout:logout,
+    lockOut:lockOut,
     hasStoredToken: hasStoredToken,
     deserializeMultiToken: deserializeMultiToken,
     saveSession: saveSession,
