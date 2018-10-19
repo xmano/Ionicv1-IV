@@ -13,25 +13,21 @@ angular.module('AuthController', ['services'])
     //LoggedOut - without token
     $scope.state = state;
     $scope.dispBiometric = false;
+    $scope.dispLockOut = false;
+    $scope.label = "Log In";
     if (state == 0) {
       $scope.msg = "Please log in..";
-      $scope.dispLockOut = false;
       $scope.btn = "Log In";
-      $scope.label = "Log In";
     } else if (state == 1) {
       //LoggedOut - with token
       $scope.msg = "Please log in..";
       $scope.dispBiometric = true;
-      $scope.dispLockOut = false;
       $scope.btn = "Log In";
-      $scope.label = "Log In";
     } if (state == 2) {
       //LoggedIn - without lock
       // no stored token..      
       $scope.msg = "You are logged in!";
       $scope.btn = "Log Out";
-      $scope.dispLockOut = false;      
-      $scope.label = "Log In";      
     } if (state == 3) {
       //LoggedIn - with lock!      
       $scope.msg = "You are logged in!";
@@ -66,9 +62,6 @@ angular.module('AuthController', ['services'])
     UserService.login(user, email)
     .then(function(data) {
       token = data;
-      
-      alert(token);
-    
       //Save this token..
       UserService.saveSession(email, token)
       .then(function() {
@@ -100,16 +93,10 @@ angular.module('AuthController', ['services'])
   }
   
   $scope.bioLogin = function() {
-    alert("Hi");
-    setState(2);
-  }
-  
-  $scope.check = function() {
     //alert('Login clicked!');
-    console.log("Checking things..");
+    console.log("Attempting fingerprint auth..");
 
     var hasToken = false;
-    
     UserService.hasStoredToken()
     .then(function(data){
       hasToken = data;
@@ -119,11 +106,12 @@ angular.module('AuthController', ['services'])
         .then(function(data){
           token = UserService.deserializeMultiToken(data);
           console.log("Logging in..: ", token);
+          setState(3);
         }, function(msg){
-          console.log("Error in finding token!");
+          alert("Error in finding token! Use password for login.");
         });
       } else {
-        console.log("Token not found");
+        alert("Error in finding token! Use password for login.");
       }      
     });
 

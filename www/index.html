@@ -48,7 +48,7 @@
           </div>
         </div>
         
-        <div ng-show="dispBiometric" ng-click="bioLogin('mano@ionic.io')">
+        <div ng-show="dispBiometric" ng-click="bioLogin()">
           <div class="row row-center" 
             style="display:block; text-align: center; margin-top: 40px;">
             <img ng-src="img/fingerprint.png"  width="25%"/>
@@ -57,13 +57,13 @@
       
         <div>
           <a class="facebook-sign-in button 
-              button-block" ng-click="login('mano@ionic.io', '#121-Pickney')">
+              button-block button-balanced" ng-click="login('mano@ionic.io', '#121-Pickney')">
               {{btn}}
           </a>
         </div>
 
-        <div ng-show="dispBiometric">
-          <a class="button button-block button-positive" ng-click="lockout()">
+        <div ng-show="dispLockOut">
+          <a class="button button-block button-energized" ng-click="lockout()">
               {{label}}
           </a>
         </div>

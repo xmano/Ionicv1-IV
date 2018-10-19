@@ -1,5 +1,3 @@
-
-  
 angular.module('services', [])
 .service('UserService', function() {
   var authVault = null;
@@ -34,15 +32,8 @@ angular.module('services', [])
 
     // Vault locked due to inactivity
     //this.clearSession();
-    //const nav = this.app.getRootNavs()[0];
-
     alert('You are being securely logged off.');
-
-    //if (nav) {
-    //  nav.setRoot(LoginPage);
-    //}
   }
-
 
   function onSessionRestored(t) {
     token = t;
@@ -76,7 +67,6 @@ angular.module('services', [])
    * authentication tokens
    */
   function logout() {
-    //const vault = await this.getVault();
     return authVault.clear();
   }
 
@@ -85,7 +75,6 @@ angular.module('services', [])
    * information from the vault
    */
   function lockOut() {
-    //const vault = await this.getVault();
     return authVault.lock();
   }
 
@@ -108,24 +97,9 @@ angular.module('services', [])
    * biometric authentication if the vault is locked
    */
   function getStoredToken() {
-    //const vault = await this.getVault();
-    //let _token = await vault.getToken();
-    
     return authVault.getToken();
-    //_token = deserializeMultiToken(_token);
-    //token = _token;
-    //return token;
   }  
   
-  // For the purpose of this example I will store user data on ionic local storage but you should save it on a database
-  var setUser = function(user_data) {
-    window.localStorage.starter_facebook_user = JSON.stringify(user_data);
-  };
-
-  var getUser = function(){
-    return JSON.parse(window.localStorage.starter_facebook_user || '{}');
-  };
-
   /**
    * Check if there is a stored token in the vault.
    */
@@ -150,7 +124,6 @@ angular.module('services', [])
     userInfo = info;
   }
   
-
   function serializeMultiToken(_token) {
     if (_token !== null && typeof _token === 'object') {
       return JSON.stringify(_token);
@@ -171,32 +144,21 @@ angular.module('services', [])
    * as a way to check if a token is still fresh
    */
   function getUser() {
-
     // Perform a server request to get the user information
     // This request pulls in a JSON with {name: 'Max'}
     // If you're using IdentityVaultInterceptor, the token header will get added automatically for you
     // const userInfoResult = await this.http.get('https://api.myjson.com/bins/7xoye', { observe: 'response' }).toPromise();
-
     return new Promise(function(resolve){
       setTimeout(() => {
         const user = {
           name: 'Max'
         }
-
         // Save the user info
         this.setInfo(user);
-
         resolve(user);
       }, 1000);
     });
-
   }
-  
-  function goToApp() {
-    
-    
-  }
-
   
   return {
     init: init,
@@ -206,8 +168,6 @@ angular.module('services', [])
     hasStoredToken: hasStoredToken,
     deserializeMultiToken: deserializeMultiToken,
     saveSession: saveSession,
-    getStoredToken: getStoredToken,
-    getUser: getUser,
-    setUser: setUser 
+    getStoredToken: getStoredToken
   };
 });
